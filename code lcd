@@ -1,0 +1,44 @@
+/*
+row = Zeile, 0 bis 3
+text = Displaytext
+ltr = 0 = linksbündig, 1 = mittig, 2 = rechtsbündig
+*/
+
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x23, 16, 2);// display 1
+
+void lcdText(int row, String text, int ltr){
+
+int offset = 0;
+
+switch(ltr){
+
+case(0)://Text links
+lcd.setCursor ( offset, row );
+lcd.print(text);
+break;
+
+case(1)://Text mittig
+offset = (displayCharLength - text.length())/2;
+lcd.setCursor ( offset, row );
+lcd.print(text);
+break;
+
+case(2)://Text rechts
+offset = (displayCharLength - text.length());
+lcd.setCursor ( offset, row );
+lcd.print(text);
+break;
+
+}
+}
+
+void lcdTextClear(int row)
+{
+lcd.setCursor ( 0, row ); //select the row
+lcd.print(" "); //Clear the row
+}
+
+
+
